@@ -8,13 +8,20 @@ public class RoomBookingFormModel {
     private EmptyRoomInformationModel emptyRoomInformationModel;
     private InforBookedRoomModel inforBookedRoomModel;
     private CustomerModel customerModel;
-    private ServiceRoomModel serviceRoomModel;
 
     public RoomBookingFormModel(){}
-
+    int idBookedRoom;
     public RoomBookingFormModel(EmptyRoomInformationModel emptyRoomInformationModel,InforBookedRoomModel inforBookedRoomModel) {
         this.emptyRoomInformationModel = emptyRoomInformationModel;
         this.inforBookedRoomModel = inforBookedRoomModel;
+    }
+
+    public int getIdBookedRoom() {
+        return idBookedRoom;
+    }
+
+    public void setIdBookedRoom(int idBookedRoom) {
+        this.idBookedRoom = idBookedRoom;
     }
 
     public int getRoomCodeEmptyRoomInformationModel(){
@@ -35,10 +42,6 @@ public class RoomBookingFormModel {
 
     public CustomerModel getCustomerModel(){
        return this.customerModel;
-    }
-
-    public ServiceRoomModel getServiceRoomModel() {
-        return serviceRoomModel;
     }
 
     public class EmptyRoomInformationModel {
@@ -135,31 +138,26 @@ public class RoomBookingFormModel {
         public void setStartDate(Timestamp startDate) {
           this.startDate = startDate;
         }
-        public void setCheckInTime(String checkInTime) {
-            calendar.setTimeInMillis(date.getTime());
-            calendar.add(Calendar.HOUR_OF_DAY,Integer.parseInt(checkInTime.substring(0,2)));
-            calendar.add(Calendar.MINUTE,Integer.parseInt(checkInTime.substring(3,5)));
-            calendar.set(Calendar.MILLISECOND, 0);
-            this.checkInTime = new Timestamp(calendar.getTimeInMillis());
-        }
         public void setCheckInTime(Timestamp checkInTime) {
             this.checkInTime = checkInTime;
         }
-        Date date = new Date(System.currentTimeMillis());
-        Calendar calendar = Calendar.getInstance();
+
         public Timestamp getEndDate() {
             return endDate;
         }
-        public void setEndDate(String checkInTime) {
-        }
+
         public void setEndDate(Timestamp endDate) {
             this.endDate = endDate;
         }
+
         @Override
         public String toString() {
-            return "InforCusBookedRoomModel{" +
-                    "checkInTime='" + checkInTime + '\'' +
-                    ", stayDuration=" + stayDuration +
+            return "InforBookedRoomModel{" +
+                    "startDate=" + startDate +
+                    ", endDate=" + endDate +
+                    ", checkInTime=" + checkInTime +
+                    ", tgoTime=" + tgoTime +
+                    ", stayDuration='" + stayDuration + '\'' +
                     ", numGuest=" + numGuest +
                     ", paymentStatus='" + paymentStatus + '\'' +
                     '}';

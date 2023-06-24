@@ -1,5 +1,7 @@
 package model;
 
+import java.math.BigDecimal;
+
 public class EmployeeModel {
     private int id;
     private String name;
@@ -8,9 +10,10 @@ public class EmployeeModel {
     private String numberPhone;
     private String address;
     private String position;
+    private BigDecimal salary;
     public EmployeeModel() {
     }
-    public EmployeeModel(int id,String name,String gender ,String email, String numberPhone, String address,String position) {
+    public EmployeeModel(int id, String name, String gender , String email, String numberPhone, String address, String position, BigDecimal salary) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -18,6 +21,7 @@ public class EmployeeModel {
         this.numberPhone = numberPhone;
         this.address = address;
         this.position = position;
+        this.salary = salary;
     }
 
     public int getId() {
@@ -69,6 +73,14 @@ public class EmployeeModel {
         return position;
     }
 
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
+    }
+
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
     public void setPosition(String position) {
         this.position = position;
     }
@@ -78,12 +90,12 @@ public class EmployeeModel {
         return "EmployeeModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +
                 ", numberPhone='" + numberPhone + '\'' +
                 ", address='" + address + '\'' +
                 ", position='" + position + '\'' +
+                ", salary=" + salary +
                 '}';
     }
-
-
 }

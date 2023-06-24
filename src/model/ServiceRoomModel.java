@@ -8,12 +8,12 @@ public class ServiceRoomModel {
     private int id;
     private String name;
     private String description;
-    private double price;
+    private int price;
     private Timestamp dateAt;
     private int quantity;
-    private double totalPrice;
-
-    public ServiceRoomModel(int id, String name, String description, double price, int quantity) {
+    private int totalPrice;
+    private String dateStr;
+    public ServiceRoomModel(int id, String name, String description, int price, int quantity) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -22,13 +22,19 @@ public class ServiceRoomModel {
         this.totalPrice = quantity*price;
         dateAt = createDateAt();
     }
-    public ServiceRoomModel(int id, String name, String description, double price,Timestamp dateAt) {
+    public ServiceRoomModel(int id, String name, String description, int price,Timestamp dateAt) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-
         this.dateAt = dateAt;
+    }
+    public ServiceRoomModel(int id, String name, int price,int quantity,String dateStr) {
+        this.id = id;
+        this.name = name;
+        this.totalPrice = price*quantity;
+        this.quantity = quantity;
+        this.dateStr = dateStr;
     }
     public Timestamp createDateAt(){
         Calendar calendar = Calendar.getInstance();
@@ -54,6 +60,9 @@ public class ServiceRoomModel {
     public Timestamp getDateAt() {
         return this.dateAt;
     }
+    public String getDateAtStr() {
+        return this.dateStr;
+    }
     public int getQuantityService() {
         return quantity;
     }
@@ -69,6 +78,7 @@ public class ServiceRoomModel {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", dateAt=" + dateAt +
+                ", total=" + totalPrice+
                 '}';
     }
 }

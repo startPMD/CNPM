@@ -6,33 +6,58 @@ import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 
 public class PanelLeftView extends JPanel {
-    private JButton btnRefresh;
-    private JLabel jlRoomManager,jlServiceManager,jlPayManager,jlEmployeeManager;
-    private JPanel  panelLogo ,panelFuncName;
-    private final String BACKGROUND_COLOR = "#5690E8";
-    private PanelRightView panelRightView;
-    public PanelLeftView(PanelRightView panelRightView) {
-        this.panelRightView = panelRightView;
+    private JLabel jlRoomManager, jlServiceManager, jlPayManager, jlEmployeeManager, jlbNameE, jlbJobPosition, nameE, jobPosition, logOut;
+    private JPanel panelFuncName;
+    private Color c;
 
+    public PanelLeftView() {
         setLayout(new BorderLayout());
-        panelLogo = new JPanel(new BorderLayout());
+        c = new Color(0, 0, 0, 16);
         createLogoHotel();
-        this.add(panelLogo,BorderLayout.NORTH);
 
 
-        panelFuncName = new JPanel();
-        panelFuncName.setLayout(new BoxLayout(panelFuncName,BoxLayout.Y_AXIS));
-        panelFuncName.setBackground(Color.decode(BACKGROUND_COLOR));
-        panelFuncName.setBorder(new EmptyBorder(-5,-5,-5,-5));
+        panelFuncName = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                int w = getWidth();
+                int h = getHeight();
+                Point2D startPoint = new Point2D.Float(0, 0);
 
-        panelFuncName.add(jlRoomManager=createFuncName(    "Quản lý phòng     "));
-        panelFuncName.add(jlServiceManager=createFuncName( "Quản lý dịch vụ   "));
-        panelFuncName.add(jlPayManager=createFuncName(     "Quản lý thanh toán"));
-        panelFuncName.add(jlEmployeeManager=createFuncName("Quản lý nhân viên "));
+                Point endPoint = new Point(w, h);
+                GradientPaint gradientPaint = new GradientPaint(startPoint, new Color(142, 197, 252), endPoint, new Color(224, 195, 252));
+                g2.setPaint(gradientPaint);
+                g2.fillRect(0, 0, w, h);
+                g2.dispose();
+            }
+        };
+        createNameFunc();
+    }
 
-        jlRoomManager.setBackground(Color.WHITE);
+    private void createNameFunc() {
+        panelFuncName.setLayout(new BoxLayout(panelFuncName, BoxLayout.Y_AXIS));
+
+        panelFuncName.add(jlRoomManager = createFuncName    ("Quản lý phòng                  "));
+        panelFuncName.add(jlServiceManager = createFuncName ("Quản lý dịch vụ                "));
+        panelFuncName.add(jlPayManager = createFuncName     ("Quản lý thanh toán           "));
+        panelFuncName.add(jlEmployeeManager = createFuncName("Quản lý nhân viên            "));
+
+        JLabel padding = new JLabel("");
+//        padding.setBorder(new EmptyBorder(0, 0, 0, 80));
+        panelFuncName.add(padding);
+        EmptyBorder emptyBorder = new EmptyBorder(10, 5, 10, 0);
+        jlRoomManager.setBorder(emptyBorder);
+        jlServiceManager.setBorder(emptyBorder);
+        jlPayManager.setBorder(emptyBorder);
+        jlEmployeeManager.setBorder(emptyBorder);
+
+
+        jlRoomManager.setBackground(c);
         jlRoomManager.setOpaque(true);
 
         jlRoomManager.setName("QLP");
@@ -40,9 +65,12 @@ public class PanelLeftView extends JPanel {
         jlPayManager.setName("QLTT");
         jlEmployeeManager.setName("QLNV");
 
+        this.add(panelFuncName, BorderLayout.WEST);
+    }
 
+    public void connectEventPanelLeftToPanelRight(PanelRightView panelRightView) {
         // Đăng ký sự kiện cho funcName
-        for (int i = 0; i <panelFuncName.getComponentCount() ; i++) {
+        for (int i = 0; i < panelFuncName.getComponentCount(); i++) {
             JLabel funcNmae = (JLabel) panelFuncName.getComponent(i);
             ((JLabel) panelFuncName.getComponent(i)).addMouseListener(new MouseAdapter() {
                 @Override
@@ -53,57 +81,103 @@ public class PanelLeftView extends JPanel {
                 }
             });
         }
-
-        this.add(panelFuncName,BorderLayout.CENTER);
-
-        this.btnRefresh = new JButton("Refresh");
-        this.btnRefresh.addActionListener(e -> {buttonRefreshFormEvent();});
-        this.add(btnRefresh,BorderLayout.SOUTH);
-
     }
+
     private void createLogoHotel() {
 // Tạo hình ảnh và đặt vào phía trên của panel
-        ImageIcon imgLogo = new ImageIcon("img\\logo.png");
+        ImageIcon imgLogo = new ImageIcon(new ImageIcon("img\\user_icon.jpg").getImage().getScaledInstance(55, 55, Image.SCALE_DEFAULT));
         JLabel imageLabel = new JLabel(imgLogo);
-        panelLogo.add(imageLabel, BorderLayout.NORTH);
+        imageLabel.setBorder(new EmptyBorder(10, 10, 10, 15));
 
-// Tạo tên ảnh và đặt vào phía dưới của panel
-        JLabel nameLogo = new JLabel("Mozila Hotel");
-        nameLogo.setBorder(new EmptyBorder(0,getWidth()/2-(imgLogo.getIconWidth()/2),0,0));
+        JPanel panelInfo = new JPanel();
+        panelInfo.setBackground(Color.WHITE);
+        panelInfo.setLayout(new BorderLayout());
+        jlbNameE = new JLabel("Tên: ");
+        nameE = new JLabel();
 
-        panelLogo.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0,Color.GRAY)
-                ,new EmptyBorder(10,0,0,0)));
-        panelLogo.add(nameLogo, BorderLayout.CENTER);
+        jlbJobPosition = new JLabel("Vị trí: ");
+        jobPosition = new JLabel();
+
+        logOut = new JLabel("Đăng xuất");
+        logOut.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        logOut.setBorder(new EmptyBorder(0, 0, 10, 15));
+        logOut.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
+
+        panelInfo.setBorder(new EmptyBorder(15, 0, 0, 0));
+        panelInfo.add(jlbNameE, BorderLayout.NORTH);
+        panelInfo.add(jlbJobPosition, BorderLayout.CENTER);
+
+        JPanel panelMain = new JPanel();
+        panelMain.setLayout(new BorderLayout());
+        panelMain.setBackground(Color.WHITE);
+        panelMain.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY)
+                , new EmptyBorder(10, 0, 0, 0)));
+
+        panelMain.add(imageLabel, BorderLayout.LINE_START);
+        panelMain.add(panelInfo, BorderLayout.CENTER);
+
+        JPanel p = new JPanel();
+        p.setBackground(Color.WHITE);
+        p.setLayout(new BorderLayout());
+        p.add(new JLabel(""), BorderLayout.CENTER);
+        p.add(logOut, BorderLayout.EAST);
+        panelMain.add(p, BorderLayout.PAGE_END);
+
+
+        this.add(panelMain, BorderLayout.NORTH);
+    }
+
+    public void setNameE(String name) {
+        nameE.setText(name);
+        jlbNameE.setText(jlbNameE.getText() + nameE.getText());
 
     }
-    public JLabel createFuncName(String funcName){
+
+    public void setInfoEmployee(String name, String position) {
+        setNameE(name);
+        setJobPosition(position);
+    }
+
+    public JLabel getLogOut() {
+        return logOut;
+    }
+
+    public void setJobPosition(String position) {
+        jobPosition.setText(position);
+        jlbJobPosition.setText(jlbJobPosition.getText() + jobPosition.getText());
+    }
+
+    public JLabel createFuncName(String funcName) {
         JLabel txtFunc = new JLabel(funcName);
         txtFunc.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        txtFunc.setBorder(new EmptyBorder(5,10,5,80));
+        txtFunc.setBorder(new EmptyBorder(5, 5, 5, 80));
         txtFunc.setFont(new Font("Serif", Font.ROMAN_BASELINE, 19));
         return txtFunc;
     }
-    public void setBackgroundFuncName(JLabel txtFunc){
-        jlRoomManager.setBackground(Color.decode(BACKGROUND_COLOR));
-        jlServiceManager.setBackground(Color.decode(BACKGROUND_COLOR));
-        jlPayManager.setBackground(Color.decode(BACKGROUND_COLOR));
-        jlEmployeeManager.setBackground(Color.decode(BACKGROUND_COLOR));
 
-        txtFunc.setBackground(Color.WHITE);
+    public void setBackgroundFuncName(JLabel txtFunc) {
+        jlRoomManager.setOpaque(false);
+        jlServiceManager.setOpaque(false);
+        jlPayManager.setOpaque(false);
+        jlEmployeeManager.setOpaque(false);
+        repaint();
+        txtFunc.setBackground(c);
         txtFunc.setOpaque(true);
-    }
-    public JButton getBtnRefresh(){
-        return this.btnRefresh;
-    }
-    private EventListenerList listenerList = new EventListenerList();
 
-    public void addButtonRefreshFormListener(RoomListener listener) {
-        listenerList.add(RoomListener.class, listener);
     }
-    private void buttonRefreshFormEvent() {
-        RoomListener[] listeners = listenerList.getListeners(RoomListener.class);
-        for (RoomListener listener : listeners) {
-            listener.btnRefreshPerformed(new RoomEvent(this));
-        }
+
+
+    public static void main(String[] args) {
+        PanelLeftView e = new PanelLeftView();
+        JFrame a = new JFrame();
+        a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        a.setSize(250, 600);
+        a.add(e);
+        a.setVisible(true);
     }
 }

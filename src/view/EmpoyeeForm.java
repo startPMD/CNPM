@@ -123,22 +123,21 @@ public class EmpoyeeForm extends JFrame {
 
     public AccountAndEmployeeModel getInfoEmployeeRegis() {
         String nameAccount = accountField.getText().trim();
-        String passAccount = passwordField.getText().trim();
+        String passAccount = String.valueOf(passwordField.getPassword()).trim();
         if(nameAccount.isEmpty() || passAccount.isEmpty())
             return null;
         boolean isActive = activateCheckBox.isSelected();
         EmployeeAccountModel eA = new EmployeeAccountModel(nameAccount, passAccount, isActive);
 
         String fullNameCus = nameField.getText().trim();
-        String genderCus = String.valueOf(genderComboBox.getSelectedIndex());
+        String genderCus = String.valueOf(genderComboBox.getSelectedItem());
         String emailCus = emailField.getText().trim();
         String phoneCus = phoneField.getText().trim();
         String addressCus = addressField.getText().trim();
-        String positionCus = String.valueOf(positionComboBox.getSelectedIndex());
-
+        String positionCus = String.valueOf(positionComboBox.getSelectedItem());
         if(fullNameCus.isEmpty() || emailCus.isEmpty() || phoneCus.isEmpty() || addressCus.isEmpty())
             return null;
-        EmployeeModel e = new EmployeeModel(-1, fullNameCus,genderCus, emailCus, phoneCus, addressCus, positionCus);
+        EmployeeModel e = new EmployeeModel(-1, fullNameCus,genderCus, emailCus, phoneCus, addressCus, positionCus,null);
 
         AccountAndEmployeeModel aAeM = new AccountAndEmployeeModel(eA,e);
         System.out.println(aAeM.toString());
@@ -152,7 +151,9 @@ public class EmpoyeeForm extends JFrame {
         setResizable(false);
         setVisible(visible);
     }
-
+    public void offFormCusRegis() {
+        dispose();
+    }
     public static void main(String[] args) {
         new EmpoyeeForm().showForm(true);
     }

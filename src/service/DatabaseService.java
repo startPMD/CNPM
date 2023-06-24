@@ -8,7 +8,7 @@ public class DatabaseService {
 
     public DatabaseService() {
         // Thực hiện kết nối đến database
-        String url = "jdbc:mysql://localhost:3306/hotel_namagerr";
+        String url = "jdbc:mysql://localhost:3306/hotel_manager";
         String user = "root";
         String password = "";
         try {
@@ -47,7 +47,13 @@ public class DatabaseService {
             throw new RuntimeException(e);
         }
     }
-
+    public PreparedStatement getPreparedStatement(String sql,int key)  {
+        try {
+            return  connection.prepareStatement(sql,key);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void closeConnection() {
         // Đóng kết nối đến database
         try {
@@ -60,4 +66,7 @@ public class DatabaseService {
         }
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
 }

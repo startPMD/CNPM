@@ -17,6 +17,14 @@ public class AccountAndEmployeeModel {
         return employee;
     }
 
+    public void setAccount(EmployeeAccountModel account) {
+        this.account = account;
+    }
+
+    public void setEmployee(EmployeeModel employee) {
+        this.employee = employee;
+    }
+
     public boolean hasValueEmpty(){
 
         return false;

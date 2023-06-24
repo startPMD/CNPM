@@ -22,11 +22,7 @@ public class TabbebPaneRoomView extends JPanel {
         }
         this.tabbed.addTab(nameTab,aRoomView.createScrollPane(aRoomView ,dimension));
     }
-    public ARoomView getEmptyRoomView(){
-        return (ARoomView) this.tabbed.getComponentAt(1);
-    }
 
-    private EventListenerList listenerList = new EventListenerList();
 
 
 

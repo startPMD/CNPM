@@ -1,15 +1,6 @@
 package view;
 
 import model.BookedRoomModel;
-import model.CustomerModel;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -20,6 +11,8 @@ import org.jdatepicker.impl.SqlDateModel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.EventListenerList;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -27,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,7 +40,7 @@ public class FindCusFormView extends JFrame {
     private JButton btnExecuteFind,btnExportFileExcel;
     private DefaultTableModel modelService;
     public FindCusFormView() {
-        super("Kiểm trả khách hàng đặt phòng");
+        super("Khách hàng đã đặt phòng");
 
         panelContainBtn = new JPanel(new FlowLayout(FlowLayout.LEFT));
         createStartDatePicker();
@@ -53,7 +48,7 @@ public class FindCusFormView extends JFrame {
         panelContainBtn.add(startDate);
         panelContainBtn.add(endDate);
 
-        jtfValueFind = new JTextField();
+        jtfValueFind = inputCusPlaceholder();
         jtfValueFind.setColumns(20);
         panelContainBtn.add(jtfValueFind);
 
@@ -73,6 +68,47 @@ public class FindCusFormView extends JFrame {
 
         add(panelContainBtn,BorderLayout.NORTH);
         add(createTable(),BorderLayout.CENTER);
+    }
+    private JTextField inputCusPlaceholder() {
+        JTextField inputCus = new JTextField(20);
+        inputCus.setForeground(Color.GRAY);
+        inputCus.setPreferredSize(new Dimension(200, 25));
+        inputCus.setText("Tên khách hàng...");
+        inputCus.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (inputCus.getText().equals("Tên khách hàng...")) {
+                    inputCus.setText("");
+                    inputCus.setForeground(Color.BLACK);
+                }
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (inputCus.getText().isEmpty()) {
+                    inputCus.setForeground(Color.GRAY);
+                    inputCus.setText("Tên khách hàng...");
+                }
+            }
+        });
+        inputCus.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                // Không làm gì khi có giá trị được thêm vào JTextField
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (inputCus.getText().isEmpty()) {
+                    // Xóa bộ lọc hàng và khôi phục lại tất cả các hàng dữ liệu
+                    inputCus.setText("");
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // Không làm gì khi có thay đổi giá trị trong JTextField
+            }
+        });
+        return inputCus;
     }
     public static FindCusFormView getInstanceFindCusFormView(){
         if(instanceFindCusFormView == null)
@@ -246,9 +282,6 @@ public class FindCusFormView extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        new FindCusFormView().showDetail();
-    }
 
     public void showMessNotFoundCus() {
         JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin khách hàng đặt phòng!");

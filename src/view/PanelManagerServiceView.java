@@ -12,18 +12,20 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PanelManagerServiceView extends JPanel {
-    private JComboBox<String> serviceComboBox,selectComboBox;
-    private JTable serviceTable,selectTable,addedTable;
-    private DefaultTableModel serviceModel, selectModel,addedModel;
+    private JComboBox<String> serviceComboBox, selectComboBox;
+    private JTable serviceTable, selectTable, addedTable;
+    private DefaultTableModel serviceModel, selectModel, addedModel;
     private JLabel jlbListService;
-    private JButton btnAdđServiceOption,btnSaveService;
+    private JButton btnAdđServiceOption, btnSaveService;
     private Map<Integer, Double> priceServices;
 
 
@@ -34,25 +36,26 @@ public class PanelManagerServiceView extends JPanel {
         JPanel p1 = new JPanel(new BorderLayout());
         p1.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        p1.add(createPanelServices(),BorderLayout.WEST);
-        p1.add(createPanelServicesSelect(),BorderLayout.CENTER);
-        add(p1,BorderLayout.CENTER);
+        p1.add(createPanelServices(), BorderLayout.WEST);
+        p1.add(createPanelServicesSelect(), BorderLayout.CENTER);
+        add(p1, BorderLayout.CENTER);
 
-        JPanel p2= new JPanel(new BorderLayout());
-        p2.add(createPanelAddedServicesSelect(),BorderLayout.CENTER);
+        JPanel p2 = new JPanel(new BorderLayout());
+        p2.add(createPanelAddedServicesSelect(), BorderLayout.CENTER);
 
         btnSaveService = new JButton("Lưu");
+        btnSaveService.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnSaveService.addActionListener(e -> buttonEvent("btnSaveService"));
 
-        p2.add(btnSaveService,BorderLayout.SOUTH);
-        add(p2,BorderLayout.SOUTH);
+        p2.add(btnSaveService, BorderLayout.SOUTH);
+        add(p2, BorderLayout.SOUTH);
 
         btnAdđServiceOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(selectModel.getRowCount() == 0){
-                    JOptionPane.showMessageDialog(null,"Bạn chưa chọn các dịch vụ cần thêm!");
-                return;
+                if (selectModel.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "Bạn chưa chọn các dịch vụ cần thêm!");
+                    return;
                 }
                 int numberRoom = Integer.parseInt((String) selectComboBox.getModel().getSelectedItem());
                 int productNameColumnIndex = 1;
@@ -62,8 +65,8 @@ public class PanelManagerServiceView extends JPanel {
                 for (int i = 0; i < selectModel.getRowCount(); i++) {
                     String productName = (String) selectModel.getValueAt(i, productNameColumnIndex);
                     int quantity = (int) selectModel.getValueAt(i, quantityColumnIndex);
-                    double totalPrice = (double) selectModel.getValueAt(i, totalPriceColumnIndex);
-                    setDataAddedModel(numberRoom,productName,quantity,totalPrice);
+                    long totalPrice = formatStrNum((String) selectModel.getValueAt(i, totalPriceColumnIndex));
+                    setDataAddedModel(numberRoom, productName, quantity, totalPrice);
                 }
                 selectModel.setRowCount(0);
                 // dac nhan so luong dịc vu da chon
@@ -71,12 +74,13 @@ public class PanelManagerServiceView extends JPanel {
             }
 
         });
-   // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
 
         priceServices = new HashMap<>();
 
     }
-    private JPanel createPanelServices(){
+
+    private JPanel createPanelServices() {
         // Init dropdowns
         String[] serviceOptions = {"Tất cả sản phẩm", "Đồ ăn", "Nước"};
         serviceComboBox = new JComboBox<>(serviceOptions);
@@ -105,9 +109,10 @@ public class PanelManagerServiceView extends JPanel {
         scrollPane.setPreferredSize(tableSize);
         panelServices.add(scrollPane, BorderLayout.CENTER);
 
-    return panelServices;
+        return panelServices;
     }
-    private JPanel createPanelServicesSelect(){
+
+    private JPanel createPanelServicesSelect() {
         selectComboBox = new JComboBox<>();
 //        selectComboBox.addActionListener(e_ -> buttonEvent("selectComboBox"));
 
@@ -123,8 +128,18 @@ public class PanelManagerServiceView extends JPanel {
                     // chỉ mục hàng hợp lệ, cập nhật giá trị
                     super.setValueAt(aValue, row, column);
                 } else {
-                    System.out.println("Error at: "+" value "+aValue+" row: "+row+" col: "+column);
+                    System.out.println("Error at: " + " value " + aValue + " row: " + row + " col: " + column);
                 }
+            }
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 2) { // kiểm tra nếu cột chỉ số lượng
+                    return Integer.class; // trả về kiểu dữ liệu của cột là Integer
+                }
+                else {
+                    return super.getColumnClass(columnIndex); // trả về kiểu dữ liệu của các cột khác
+                }
+
             }
         };
         selectTable = new JTable(selectModel);
@@ -136,12 +151,14 @@ public class PanelManagerServiceView extends JPanel {
         panelServicesSelect.add(selectComboBox, BorderLayout.NORTH);
         panelServicesSelect.add(new JScrollPane(selectTable), BorderLayout.CENTER);
 
-    return panelServicesSelect;
+        return panelServicesSelect;
     }
-    private void setNumAddedService(int num){
-        jlbListService.setText("Danh sách địch vụ đã thêm ("+num+")");
+
+    private void setNumAddedService(int num) {
+        jlbListService.setText("Danh sách địch vụ đã thêm (" + num + ")");
     }
-    private JPanel createPanelAddedServicesSelect(){
+
+    private JPanel createPanelAddedServicesSelect() {
         JPanel panelAddedServices = new JPanel(new BorderLayout());
         panelAddedServices.setBorder(new EmptyBorder(0, 5, 5, 5));
 
@@ -151,26 +168,27 @@ public class PanelManagerServiceView extends JPanel {
         btnAdđServiceOption = new JButton("Thêm dịch vụ");
         btnAdđServiceOption.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        String[] addCol = {"STT", "Phòng", "Tên dịch vụ","Số lượng","Thời gian","Tổng tiền"};
-        addedModel = new DefaultTableModel(addCol,0) {
+        String[] addCol = {"STT", "Phòng", "Tên dịch vụ", "Số lượng", "Thời gian", "Tổng tiền"};
+        addedModel = new DefaultTableModel(addCol, 0) {
             public boolean isCellEditable(int row, int column) {
                 return false; // Chỉ cho phép chỉnh sửa cột "Thêm"
             }
         };
         addedTable = new JTable(addedModel);
-        panelAddedServices.add(jlbListService,BorderLayout.LINE_START);
-        panelAddedServices.add(btnAdđServiceOption,BorderLayout.LINE_END);
+        panelAddedServices.add(jlbListService, BorderLayout.LINE_START);
+        panelAddedServices.add(btnAdđServiceOption, BorderLayout.LINE_END);
 
         JScrollPane scrollPane = new JScrollPane(addedTable);
         Dimension tableSize = new Dimension(400, 160);
         scrollPane.setPreferredSize(tableSize);
         scrollPane.setBorder(new EmptyBorder(5, 0, 0, 0));
-        panelAddedServices.add(scrollPane,BorderLayout.PAGE_END);
+        panelAddedServices.add(scrollPane, BorderLayout.PAGE_END);
 
         return panelAddedServices;
     }
-    public void setCBDateNumberRoom(List<Integer> integers){
-        for (Integer integer:integers) {
+
+    public void setCBDateNumberRoom(List<Integer> integers) {
+        for (Integer integer : integers) {
             this.selectComboBox.addItem(String.valueOf(integer));
         }
     }
@@ -191,24 +209,30 @@ public class PanelManagerServiceView extends JPanel {
 
     public void setDataSelectModel(String nameProduct, double price) {
         // cập nhật số lượng sản phẩ nếu click vào sản phẩm tồn tại
-        int r = getRowValue(this.selectTable,1,nameProduct);
-        if(r > -1){
+        int r = getRowValue(this.selectTable, 1, nameProduct);
+        if (r > -1) {
             int numPro = (int) this.selectModel.getValueAt(r, 2);
-            this.selectModel.setValueAt(numPro+1,r,2);
+            this.selectModel.setValueAt(++numPro, r, 2);
             return;
         }
-        this.selectModel.addRow(new Object[]{
-                "",nameProduct, 1, price, price});
-    }
 
-    public void setDataAddedModel(int numberRoom, String nameProduct,int number, double price) {
-        double totalPrice = price*number;
+        BigDecimal big = new BigDecimal(price);
+        this.selectModel.addRow(new Object[]{
+                "", nameProduct, 1,salaryFormat(big) ,salaryFormat(big)});
+    }
+    public String salaryFormat(BigDecimal decimal) {
+        DecimalFormat formatter = new DecimalFormat("#,###.00");
+        String formattedValue = formatter.format(decimal);
+        return formattedValue;
+    }
+    public void setDataAddedModel(int numberRoom, String nameProduct, int number, long price) {
+        BigDecimal totalPrice = new BigDecimal(price );
+
         this.addedModel.addRow(new Object[]{
-                "",numberRoom,nameProduct, number,new Timestamp(System.currentTimeMillis()),totalPrice});
+                "", numberRoom, nameProduct, number, new Timestamp(System.currentTimeMillis()),salaryFormat(totalPrice)});
         updateRowNumbers(addedTable);
         // xoa du lieu tu bang selectModel sao khi them du lieu
     }
-
     public List<List<Object>> getListAddedService() {
         List<List<Object>> result = new ArrayList<>();
         int roomColumnIndex = 1;
@@ -221,11 +245,11 @@ public class PanelManagerServiceView extends JPanel {
             String serviceName = (String) addedTable.getValueAt(i, serviceNameColumnIndex);
             int quantity = (int) addedTable.getValueAt(i, quantityColumnIndex);
             Timestamp time = (Timestamp) addedTable.getValueAt(i, timeColumnIndex);
-            double totalPrice = (double) addedTable.getValueAt(i, totalPriceColumnIndex);
+            long totalPrice = formatStrNum((String) addedTable.getValueAt(i, totalPriceColumnIndex));
 
             List<Object> service = new ArrayList<>();
-            service.add( numRoom);
-            service.add( serviceName);
+            service.add(numRoom);
+            service.add(serviceName);
             service.add(quantity);
             service.add(time);
             service.add(totalPrice);
@@ -233,16 +257,18 @@ public class PanelManagerServiceView extends JPanel {
         }
         return result;
     }
+
     public void delAllDateServiceModel() {
         this.serviceModel.setRowCount(0);
     }
-    private int getRowValue(JTable table,int col,String data){
+
+    private int getRowValue(JTable table, int col, String data) {
         int r = -1;
         for (int i = 0; i < table.getRowCount(); i++) {
-                Object value = table.getValueAt(i, col);
-                if (value.equals(data)) {
-                    r = i;
-                    break;
+            Object value = table.getValueAt(i, col);
+            if (value.equals(data)) {
+                r = i;
+                break;
             }
         }
         return r;
@@ -288,6 +314,7 @@ public class PanelManagerServiceView extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     switch (typeButton) {
                         case "addBtn": {
+                            System.out.println("ddddddddđ");
                             int idProduct = (int) serviceModel.getValueAt(row, 0);
                             String nameProduct = (String) serviceModel.getValueAt(row, 1);
                             if (priceServices.containsKey(idProduct)) {
@@ -298,7 +325,6 @@ public class PanelManagerServiceView extends JPanel {
                             break;
                         }
                         case "minusBtn": {
-
                             int selectedRowIndex = selectTable.getSelectedRow();
                             if (selectedRowIndex != -1) {
                                 selectModel.removeRow(selectedRowIndex);
@@ -361,12 +387,23 @@ public class PanelManagerServiceView extends JPanel {
             listener.buttonPerformed(new RoomEvent(this, name));
         }
     }
+
     private void updateRowNumbers(JTable table) {
         int rowCount = table.getRowCount();
         for (int i = 0; i < rowCount; i++) {
-            if(i >= 0 && i < table.getRowCount())
-            table.setValueAt(i + 1, i, 0);
+            if (i >= 0 && i < table.getRowCount())
+                table.setValueAt(i + 1, i, 0);
         }
+    }
+    private long formatStrNum(String numFormat){
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+        try {
+            Number number = decimalFormat.parse(numFormat);
+            return number.longValue();
+        } catch (Exception e) {
+            System.out.println("Invalid number format");
+        }
+        return -1;
     }
     public void setListenerChangeQuantity() {
         selectTable.getModel().addTableModelListener(new TableModelListener() {
@@ -375,10 +412,10 @@ public class PanelManagerServiceView extends JPanel {
                 // Kiểm tra xem sự kiện thay đổi giá trị có phải là từ cột "Số lượng" không
                 if (e.getColumn() == 2) { // 2 là số thứ tự cột "Số lượng"
                     int row = e.getFirstRow(); // Lấy số hàng tương ứng với giá trị đã thay đổi
-                    int soLuong = (int) selectTable.getValueAt(row, 2); // Lấy giá trị của cột "Số lượng"
-                    double donGia = (double) selectTable.getValueAt(row, 3); // Lấy giá trị của cột "Đơn giá"
-                    double thanhTien = soLuong * donGia; // Tính giá trị của cột "Thành tiền"
-                    selectTable.setValueAt(thanhTien, row, 4); // Đặt giá trị của cột "Thành tiền"
+                    int soLuong = (int) selectModel.getValueAt(row, 2);
+//                    double donGia =   Double.parseDouble();
+                    double thanhTien = soLuong * formatStrNum((String) selectModel.getValueAt(row, 3));
+                    selectModel.setValueAt(salaryFormat(BigDecimal.valueOf(thanhTien)), row, 4);
                 }
             }
         });

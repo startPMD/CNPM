@@ -1,5 +1,6 @@
 package view;
 
+import model.CustomerModel;
 import model.RoomBookingFormModel;
 import model.ServiceRoomModel;
 
@@ -7,6 +8,12 @@ import javax.swing.*;
 import javax.swing.event.EventListenerList;
 import javax.swing.table.*;
 import java.awt.*;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InfoCusBookedFormView extends JFrame {
     // ... các thành phần khác của form
@@ -14,39 +21,47 @@ public class InfoCusBookedFormView extends JFrame {
     private JLabel lblGuestRoom, lblNumPhone, lblIdNumber, lblStayDuration, lblStatesPayment, lblPriceRoom;
     private JLabel lblTypeRoom, lblNumRoom, lblCheckInTime, lblBookedTime, lblEndDate;
     private DefaultTableModel modelService;
-    private JButton btnCheckOut_Print, btnChangeRoom, btnCheckOut;
+    private JButton btnChangeRoom, btnCheckOut;
+    RoomChangeForm roomChangeForm;
 
     public InfoCusBookedFormView() {
         super("Thông tin khách hàng đặt phòng");
+        roomChangeForm = new RoomChangeForm();
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         createC1();
         createC2();
         createC3();
-
         JPanel panelBtn = new JPanel();
-        btnChangeRoom = new JButton("Đổi phòng");
-        btnCheckOut = new JButton("Trả phòng");
-        btnCheckOut_Print = new JButton("Trả phòng và In");
+        btnChangeRoom = new JButton();
+        btnCheckOut = new JButton();
 
 
         btnChangeRoom.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnCheckOut_Print.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnCheckOut.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
         btnChangeRoom.addActionListener(e -> buttonEvent("btnChangeRoom"));
         btnCheckOut.addActionListener(e -> buttonEvent("btnCheckOut"));
-        btnCheckOut_Print.addActionListener(e -> buttonEvent("btnCheckOut_Print"));
 
         panelBtn.add(btnChangeRoom);
         panelBtn.add(btnCheckOut);
-        panelBtn.add(btnCheckOut_Print);
 
 
         panel.add(panelBtn);
 
         add(panel);
+    }
+
+    public String formatStartDate(String start) {
+        Timestamp timestamp = Timestamp.valueOf(start);
+        Date date = new Date(timestamp.getTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return formatter.format(date);
+    }
+
+    public RoomChangeForm getRoomChangeForm() {
+        return roomChangeForm;
     }
 
     public String getIdNumber() {
@@ -66,6 +81,7 @@ public class InfoCusBookedFormView extends JFrame {
         JLabel soDienThoaiLabel = new JLabel("Số điện thoại:");
         JLabel soChungMinhLabel = new JLabel("Số chứng minh:");
 
+        Font font = new Font("Arial", Font.PLAIN, 15);
         lblGuestRoom = new JLabel();
         lblNumPhone = new JLabel();
         lblIdNumber = new JLabel();
@@ -77,6 +93,18 @@ public class InfoCusBookedFormView extends JFrame {
         lblCheckInTime = new JLabel();
         lblBookedTime = new JLabel();
         lblEndDate = new JLabel();
+
+        lblGuestRoom.setFont(font);
+        lblNumPhone.setFont(font);
+        lblIdNumber.setFont(font);
+        lblStayDuration.setFont(font);
+        lblStatesPayment.setFont(font);
+        lblPriceRoom.setFont(font);
+        lblTypeRoom.setFont(font);
+        lblNumRoom.setFont(font);
+        lblCheckInTime.setFont(font);
+        lblBookedTime.setFont(font);
+        lblEndDate.setFont(font);
 
         infoPanel.add(nguoiDatPhongLabel);
         infoPanel.add(lblGuestRoom);
@@ -153,15 +181,22 @@ public class InfoCusBookedFormView extends JFrame {
         panel.add(servicePanel);
     }
 
-    public void setDataService(ServiceRoomModel serviceRoomModel) {
-        this.modelService.addRow(new Object[]
-                {" " + serviceRoomModel.getName(), serviceRoomModel.getDateAt() + " ", serviceRoomModel.getPrice() + " "
-                        , serviceRoomModel.getQuantityService() + " ", serviceRoomModel.getTotalPrice() + " "});
+    List<ServiceRoomModel> services;
+    DecimalFormat formatter = new DecimalFormat("#,###");
 
+    public void setDataServices(List<ServiceRoomModel> serviceRoomModel) {
+        services = serviceRoomModel;
+        for (ServiceRoomModel service : services) {
+            this.modelService.addRow(new Object[]
+                    {"" + service.getName(), service.getDateAt() + "", formatter.format(service.getPrice())
+                            , service.getQuantityService() + "", formatter.format(service.getTotalPrice())});
+        }
     }
-    public void setTotalPrice(double totalPrice){
-        this.modelService.addRow(new Object[]{"","","","",totalPrice+" "});
+
+    public void setTotalPrice(double totalPrice) {
+        this.modelService.addRow(new Object[]{"", "", "", "Tổng tiền", formatter.format(totalPrice)});
     }
+
     public void setTxtGuestRoom(String nameGuestRoom) {
         this.lblGuestRoom.setText(nameGuestRoom);
     }
@@ -194,16 +229,28 @@ public class InfoCusBookedFormView extends JFrame {
         this.lblNumRoom.setText(numRoom);
     }
 
+    public String getNumRoom() {
+        return lblNumRoom.getText();
+    }
+
     public void setTxtCheckInTime(String checkInTime) {
-        this.lblCheckInTime.setText(checkInTime);
+        this.lblCheckInTime.setText(formatStartDate(checkInTime));
     }
 
     public void setTxtBookedTime(String bookedTime) {
-        this.lblBookedTime.setText(bookedTime);
+        this.lblBookedTime.setText(formatStartDate(bookedTime));
     }
 
     public void setTxtEndDate(String endDate) {
-        this.lblEndDate.setText(endDate);
+        this.lblEndDate.setText(formatStartDate(endDate));
+    }
+
+    public String getStatesPayment() {
+        return lblStatesPayment.getText().trim();
+    }
+
+    public String getCheckInTime() {
+        return lblCheckInTime.getText();
     }
 
     private EventListenerList listenerList = new EventListenerList();
@@ -219,22 +266,52 @@ public class InfoCusBookedFormView extends JFrame {
         }
     }
 
+    private int idCus, idRoom;
 
-   public void setEmptyRoomInformationModel(RoomBookingFormModel roomBookingFormView) {
+    public int idCus() {
+        return idCus;
+    }
+
+    public int idRoom() {
+        return idRoom;
+    }
+
+    public void setEmptyRoomInformationModel(RoomBookingFormModel roomBookingFormView) {
         // C1
-        setTxtGuestRoom(roomBookingFormView.getCustomerModel().getName());
-        setTxtIdNumber(roomBookingFormView.getCustomerModel().getIdNumber());
-        setTxtNumPhone(roomBookingFormView.getCustomerModel().getPhone());
+        CustomerModel cus = roomBookingFormView.getCustomerModel();
+        idCus = cus.getId();
+        setTxtGuestRoom(cus.getName());
+        setTxtIdNumber(cus.getIdNumber());
+        setTxtNumPhone(cus.getPhone());
         //C2
-        setTxtTypeRoom(roomBookingFormView.getEmptyRoomInformationModel().getRoomType());
-        setTxtNumRoom(roomBookingFormView.getEmptyRoomInformationModel().getRoomCode() + "");
-        setTxtPriceRoom(roomBookingFormView.getEmptyRoomInformationModel().getRoomPrice() + "");
-        setTxtStatesPayment(roomBookingFormView.getInforBookedRoomModel().getPaymentStatus());
-        setTxtBookedTime(roomBookingFormView.getInforBookedRoomModel().getStartDate() + "");
-        setTxtCheckInTime(roomBookingFormView.getInforBookedRoomModel().getCheckInTime() + "");
-        setTxtStayDuration(roomBookingFormView.getInforBookedRoomModel().getStayDuration());
-        setTxtEndDate(roomBookingFormView.getInforBookedRoomModel().getEndDate() + " VND");
+        RoomBookingFormModel.EmptyRoomInformationModel em = roomBookingFormView.getEmptyRoomInformationModel();
+        idRoom = em.getId();
+        setTxtTypeRoom(em.getRoomType());
+        setTxtNumRoom(em.getRoomCode() + "");
+        setTxtPriceRoom(formatter.format(em.getRoomPrice()) + " VND");
+
+        RoomBookingFormModel.InforBookedRoomModel inf = roomBookingFormView.getInforBookedRoomModel();
+        System.err.println(inf.toString());
+        setTxtStatesPayment(inf.getPaymentStatus());
+        setTxtBookedTime(inf.getStartDate() + "");
+        setTxtCheckInTime(inf.getCheckInTime() + "");
+        setTxtStayDuration(inf.getStayDuration());
+        setTxtEndDate(inf.getEndDate() + "");
         //C3
+        // dat ma phong cho form doi phog
+        roomChangeForm.setCurrentCodeRoomJlb(roomBookingFormView.getEmptyRoomInformationModel().getRoomCode());
+    }
+
+    public List<ServiceRoomModel> lsService() {
+        List<ServiceRoomModel> ls = new ArrayList<>();
+        for (int i = 0; i < modelService.getRowCount() - 1; i++) {
+            String name = (String) modelService.getValueAt(i, 0);
+            String timestamp = (String) modelService.getValueAt(i, 1);
+            int totalPrice = Integer.parseInt(((String) modelService.getValueAt(i, 2)).replace(",",""));
+            int quantity = Integer.parseInt((String) modelService.getValueAt(i, 3));
+            ls.add(new ServiceRoomModel(-1, name, totalPrice, quantity, timestamp));
+        }
+        return ls;
     }
 
     public void showDetail() {
@@ -243,11 +320,32 @@ public class InfoCusBookedFormView extends JFrame {
         this.setVisible(true);
     }
 
-    public void offDetail() {
-        this.setVisible(false);
+
+    public String getPriceRoom() {
+        return lblPriceRoom.getText().trim().substring(0, lblPriceRoom.getText().length() - 4).replace(",", "");
     }
 
-    public static void main(String[] args) {
-        new InfoCusBookedFormView().showDetail();
+    public double getTotalPricePay() {
+        if (modelService.getRowCount() < 1)
+            return Double.parseDouble(getPriceRoom());
+        return Integer.parseInt(((String) modelService.getValueAt(modelService.getRowCount() - 1, 4)).replace(",","")) + Double.parseDouble(getPriceRoom());
+    }
+
+    double VAT;
+
+    public void setTotalVAT(double totalVAT) {
+        VAT = totalVAT;
+    }
+
+    public double getTotalVAT() {
+        return VAT;
+    }
+
+    public void setNameBtnLeft(String s) {
+        btnChangeRoom.setText(s);
+    }
+
+    public void setNameBtnRight(String s) {
+        btnCheckOut.setText(s);
     }
 }

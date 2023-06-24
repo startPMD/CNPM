@@ -63,6 +63,21 @@ public abstract class ARoomView extends JPanel {
         }
         return imageRoomViews;
     }
+    public void removeImgView(int codeRoom){
+        JPanel panelLayout = null;
+        for (int i = 0; i < this.getComponentCount(); i++) {
+             panelLayout = (JPanel) ((JPanel) this.getComponent(i)).getComponent(1);
+            ImageRoomView imgRoom;
+            for (int j = 0; j < panelLayout.getComponentCount(); j++) {
+                imgRoom = (ImageRoomView) panelLayout.getComponent(j);
+                if(imgRoom.getNumberRoom() == codeRoom){
+                    imgRoom.setVisible(false);
+                    panelLayout.remove(imgRoom);
+                    return;
+                }
+            }
+        }
+    }
     public abstract ARoomView getObjectRoomView();
 
 

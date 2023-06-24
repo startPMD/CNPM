@@ -32,4 +32,20 @@ public class EmptyRoomView extends ARoomView {
         }
     }
 
+    public void createRoom(RoomBookingFormModel.EmptyRoomInformationModel emptyRoomInformationModel) {
+
+        for (ImageRoomView imageRoomView : super.getImageRoomViews()) {
+            RoomBookingFormView roomBookingFormView = new RoomBookingFormView();
+            roomBookingFormView.setEmptyRoomInformationModel(emptyRoomInformationModel);
+            if (imageRoomView.hasRoomCode(emptyRoomInformationModel.getRoomCode())) {
+                imageRoomView.setIdNumRoom(emptyRoomInformationModel.getId());
+                imageRoomView.setRoomBookingForm(roomBookingFormView);
+            }
+        }
+    }
+
+    public void removeView(int codeRoom) {
+        removeImgView(codeRoom);
+    }
+
 }

@@ -3,17 +3,19 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class ImageRoomView extends JPanel {
+public class ImageRoomView extends JPanel implements MouseListener {
     private int idRoomImg;
     private final String PATH_IMG = "img\\e.png";
     private JLabel jlNumRoom;
     private RoomBookingFormView roomBookingForm;
     private InfoCusBookedFormView infoCusBookedFormView;
+    private ARoomView aRoomView;
 
     public ImageRoomView(ARoomView aRoomView) {
+        this.aRoomView = aRoomView;
         JLabel jlImgLabel = new JLabel();
         jlImgLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         jlImgLabel.setIcon(new ImageIcon(new ImageIcon(PATH_IMG).getImage().getScaledInstance(45, 45, Image.SCALE_DEFAULT)));
@@ -25,19 +27,7 @@ public class ImageRoomView extends JPanel {
         this.add(jlImgLabel, BorderLayout.NORTH);
         this.add(jlNumRoom, BorderLayout.CENTER);
 
-        if (aRoomView instanceof EmptyRoomView)
-            this.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    showRoomBookingForm();
-                }
-            });
-        if (aRoomView instanceof GuestRoomView)
-            this.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {showInfoCusBookedFormView();
-                }
-            });
+        addMouseListener(this);
     }
 
     public int getIdRoomImg() {
@@ -87,7 +77,46 @@ public class ImageRoomView extends JPanel {
     public void showRoomBookingForm() {
         this.roomBookingForm.showDetail();
     }
+
     public void showInfoCusBookedFormView() {
         this.infoCusBookedFormView.showDetail();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+        if (aRoomView instanceof EmptyRoomView)
+            showRoomBookingForm();
+
+        if (aRoomView instanceof GuestRoomView){
+            this.infoCusBookedFormView.setNameBtnLeft("Đổi phòng");
+            this.infoCusBookedFormView.setNameBtnRight("Trả phòng");
+            showInfoCusBookedFormView();
+        }
+        if (aRoomView instanceof BookedRoomView){
+            this.infoCusBookedFormView.setNameBtnLeft("Nhận phòng");
+            this.infoCusBookedFormView.setNameBtnRight("Hủy Đặc phòng");
+            showInfoCusBookedFormView();
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

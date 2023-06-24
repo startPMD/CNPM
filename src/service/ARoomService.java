@@ -12,7 +12,6 @@ import java.util.*;
 public abstract class ARoomService {
     protected DatabaseService databaseService = DatabaseService.getInstanceDatabaseService() ;
     public ARoomService() {
-
     }
     public abstract List<ARoomModel> getRoomList();
     public Map<String, Map<Integer,Integer>> getTypeRoom(int codeTypeRoom) {

@@ -78,6 +78,7 @@ public class LayoutRoomService extends ARoomService {
     public static void main(String[] args) {
     }
 
+    // lay danh sach khach hang da từng đặc phong
     public List<BookedRoomModel> listCusBookedRoom(Date startDate,Date endDate) {
         String sql = " SELECT DISTINCT c.name,c.phone,c.identity_number,c.address,bar.start_date,bar.end_date,r.room_number FROM book_a_room bar " +
                 "JOIN customer c ON c.id = bar.customer_id " +

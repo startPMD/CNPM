@@ -5,14 +5,26 @@ import service.*;
 import view.*;
 
 import javax.swing.*;
-import java.sql.Date;
+import java.awt.*;
 
 public class EmptyRoomController extends AManagerRoomController {
-
-    EmptyRoomInformationService emptyRoomInformationService;
+    RefreshController refreshController;
+    EmptyRoomView emptyRoomView;
+    GuestRoomController guestRoomController;
+    BookedRoomController bookedRoomController;
     public EmptyRoomController(ARoomModel aRoomModel, ARoomService aRoomService, ARoomView aRoomView) {
         super(aRoomModel, aRoomService, aRoomView);
+        emptyRoomView = (EmptyRoomView) aRoomView;
     }
+
+    public void setGuestRoomController(GuestRoomController guestRoomController) {
+        this.guestRoomController = guestRoomController;
+    }
+
+    public void setBookedRoomController(BookedRoomController bookedRoomController) {
+        this.bookedRoomController = bookedRoomController;
+    }
+
     @Override
     public void construcFirst() {
 
@@ -26,7 +38,9 @@ public class EmptyRoomController extends AManagerRoomController {
             ((EmptyRoomView) this.aRoomView).setDataEmptyRoomInformation(emptyRoomInformationModel);
         }
     }
-
+    public void setRefreshController(RefreshController refreshController) {
+        this.refreshController = refreshController;
+    }
     @Override
     public void setActionSaveForm() {
         for (ImageRoomView imageRoomView : this.aRoomView.getImageRoomViews()) {
@@ -69,29 +83,34 @@ public class EmptyRoomController extends AManagerRoomController {
                     // luu lai thong tin khach hang dac phòng
                     RoomBookingFormModel.InforBookedRoomModel inforBookedRoomModel = new RoomBookingFormModel().new InforBookedRoomModel(
                             roomBookingFormView.getInputNumGuest(), roomBookingFormView.getSelectedPaymentStatus());
-                    inforBookedRoomModel.setEndDate(roomBookingFormView.getCheckInTime());
+                    inforBookedRoomModel.setEndDate(roomBookingFormView.getEndDate());
                     inforBookedRoomModel.setCheckInTime(roomBookingFormView.getCheckInTime());
 
                   // luu phong khach hang dat
                     emptyRoomService.saveBookedRoom(customerModel.getId(), imageRoomView.getIdNumRoom(),inforBookedRoomModel);
                   // cap nhat trang thai phong la dat phong
-                    // 00:00 khach hag nhan phong luon
                     StatesRoomService statesRoomService = StatesRoomService.getInstanceDatabaseService();
                     int numberRoom = imageRoomView.getNumberRoom();
-                    if("null".equalsIgnoreCase(roomBookingFormView.getJtfCheckInTime()) ||"".equalsIgnoreCase(roomBookingFormView.getJtfCheckInTime())){
+
+                    emptyRoomView.removeView(numberRoom);
+
+                    if(roomBookingFormView.getJtfCheckInTime() == null){
                         statesRoomService.updateStatesRoom(numberRoom,2);
+                        refreshController.resetViewRoom(guestRoomController.aRoomService,guestRoomController.guestRoomView,guestRoomController);
                     }
                     //khach hangg dat phong
                     else {
                         statesRoomService.updateStatesRoom(numberRoom,3);
+                        refreshController.resetViewRoom(bookedRoomController.aRoomService,bookedRoomController.bookedRoomView,bookedRoomController);
+
                     }
-                  // luu lai tien  thanh toan neu khach hang da thuc hien thanh toan
-//                   if("Đã thanh toán".equalsIgnoreCase(inforBookedRoomModel.getPaymentStatus())){
-//                       int idBookedRoom = emptyRoomService.getIdBookedRoom(customerModel.getId(), imageRoomView.getIdNumRoom(),inforBookedRoomModel.getCheckInTime());
-//                       double totalPayPrice = Double.parseDouble(roomBookingFormView.getSelectedStayDuration().substring(0,1))*roomBookingFormView.getPriceRoom();
-//                       PaymentModel paymentModel = new PaymentModel(customerModel.getId(),idBookedRoom,totalPayPrice,"null");
-//                       emptyRoomService.savePaymentCustomer(paymentModel);
-//                   }
+//
+//                    emptyRoomView.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+//                    // resetView
+////                    refreshController.resetViewRoom();
+//
+//                    emptyRoomView.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
                    // tat form sau khi thuc hien xong
                        JOptionPane.showMessageDialog(null, "Thông tin đã được lưu thành công");
                        roomBookingFormView.offDetail();
@@ -99,5 +118,10 @@ public class EmptyRoomController extends AManagerRoomController {
             });
         }
     }
-
+    public void setEmptyRoom(int codeRoom) {
+        EmptyRoomInformationService emptyRoomInformationService = EmptyRoomInformationService.getInstanceEmptyRoomInformationService();
+        emptyRoomView.removeAll();
+        loadDataRoomToView(emptyRoomView);
+        emptyRoomView.setDataEmptyRoomInformation(emptyRoomInformationService.getInforRoomModels(codeRoom));
+    }
 }

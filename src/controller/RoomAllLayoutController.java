@@ -3,10 +3,8 @@ package controller;
 import model.ARoomModel;
 import model.BookedRoomModel;
 import model.LayoutRoomModel;
-import model.ServiceRoomModel;
 import service.ARoomService;
 import service.LayoutRoomService;
-import service.StatesRoomService;
 import view.*;
 
 import javax.swing.*;
@@ -109,6 +107,17 @@ public class RoomAllLayoutController extends AManagerRoomController {
 
     @Override
     public void setActionSaveForm() {
+
+    }
+    public static void main(String[] args) {
+        RoomAllLayoutView roomAllLayoutView1 = new RoomAllLayoutView();
+        JFrame frame = new JFrame("Test");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(roomAllLayoutView1);
+        frame.pack();
+        frame.setVisible(true);
+        ARoomService layoutRoomService = new LayoutRoomService();
+        AManagerRoomController roomAllLayoutController = new RoomAllLayoutController(null,layoutRoomService,roomAllLayoutView1);
 
     }
 }

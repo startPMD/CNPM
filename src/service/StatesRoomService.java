@@ -27,13 +27,13 @@ public class StatesRoomService {
         }
     }
 
-    public boolean updateStateBookedRoom(String idNumber, String bookedTime) {
+    public boolean updateStateBookedRoom(int idCus,int idRoom) {
         String query = "UPDATE book_a_room SET state = 6 " +
-                "WHERE customer_id IN(SELECT id FROM customer WHERE identity_number = ?) " +
-                "AND start_date = ?";
+                "WHERE customer_id = ? AND room_id = ? " +
+                "AND ISNULL(state)";
         try (PreparedStatement statement = databaseService.getPreparedStatement(query)) {
-            statement.setString(1,idNumber);
-            statement.setString(2,bookedTime);
+            statement.setInt(1,idCus);
+            statement.setInt(2,idRoom);
             int count = statement.executeUpdate();
             return  count > 0;
         } catch (SQLException e) {

@@ -35,7 +35,7 @@ public class BookedRoomService extends ARoomService {
                 "INNER JOIN book_a_room bar ON c.id = bar.customer_id " +
                 "INNER JOIN room r ON r.id = bar.room_id " +
                 "INNER JOIN room_types rt ON r.type_room_id = rt.id " +
-                "WHERE r.status = 3 AND CURTIME() < bar.end_date AND ISNULL(bar.state);";
+                "WHERE r.status = 3 AND NOW() < bar.end_date AND ISNULL(bar.state);";
         try (ResultSet rs = this.databaseService.executeQuery(query)) {
             while (rs.next()) {
                 int idRoom = rs.getInt("id");
@@ -51,7 +51,6 @@ public class BookedRoomService extends ARoomService {
                 Timestamp endDate = rs.getTimestamp("end_date");
                 // Do something with the retrieved data
 
-//                System.out.println(name + " - " + phone + " - " + identityNumber + " - " + roomType + " - " + roomNumber + " - " + roomPrice + " - " + paymentStatus + " - " + startDate + " - " + checkInTime + " - " + stayDuration + " - " + endDate);
                 CustomerModel customerModel = new CustomerModel();
                 customerModel.setName(name);
                 customerModel.setPhone(phone);
