@@ -77,6 +77,7 @@ public abstract class AManagerRoomController {
         ((BookedRoomController) bookedRoomController).setGuestRoomController((GuestRoomController) guestRoomController);
         ((BookedRoomController) bookedRoomController).setEmptyRoomController((EmptyRoomController) emptyRoomController);
 
+
         ((GuestRoomController) guestRoomController).setEmptyRoomController((EmptyRoomController) emptyRoomController);
 
 

@@ -15,6 +15,7 @@ public class BookedRoomController extends AManagerRoomController {
     BookedRoomService bookedRoomService;
     GuestRoomController guestRoomController;
     EmptyRoomController emptyRoomController;
+
     RefreshController refreshController;
 
     public BookedRoomController(ARoomModel aRoomModel, ARoomService aRoomService, ARoomView aRoomView) {

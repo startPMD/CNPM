@@ -1,4 +1,5 @@
 package view;
+
 import controller.*;
 import service.*;
 
@@ -27,20 +28,20 @@ public class MainView extends JFrame {
         ARoomView emptyRoomView = new EmptyRoomView();
         ARoomView guestRoomView = new GuestRoomView();
         ARoomView bookedRoomView = new BookedRoomView();
-        tabbebPaneRoomView.addTabeb(roomAllLayoutView.getName(),roomAllLayoutView,false);
-        tabbebPaneRoomView.addTabeb(emptyRoomView.getName(),emptyRoomView,true);
-        tabbebPaneRoomView.addTabeb(guestRoomView.getName(),guestRoomView,true);
-        tabbebPaneRoomView.addTabeb(bookedRoomView.getName(),bookedRoomView,true);
+        tabbebPaneRoomView.addTabeb(roomAllLayoutView.getName(), roomAllLayoutView, false);
+        tabbebPaneRoomView.addTabeb(emptyRoomView.getName(), emptyRoomView, true);
+        tabbebPaneRoomView.addTabeb(guestRoomView.getName(), guestRoomView, true);
+        tabbebPaneRoomView.addTabeb(bookedRoomView.getName(), bookedRoomView, true);
 
         ARoomService layoutRoomService = new LayoutRoomService();
         ARoomService emptyRoomService = new EmptyRoomService();
         ARoomService guestRoomService = new GuestRoomService();
         ARoomService bookedRoomService = new BookedRoomService();
 
-        AManagerRoomController roomAllLayoutController = new RoomAllLayoutController(null,layoutRoomService,roomAllLayoutView);
-        AManagerRoomController emptyRoomController = new EmptyRoomController(null,emptyRoomService, emptyRoomView);
-        AManagerRoomController guestRoomController = new GuestRoomController(null,guestRoomService,guestRoomView);
-        AManagerRoomController bookedRoomController = new BookedRoomController(null,bookedRoomService,bookedRoomView);
+        AManagerRoomController roomAllLayoutController = new RoomAllLayoutController(null, layoutRoomService, roomAllLayoutView);
+        AManagerRoomController emptyRoomController = new EmptyRoomController(null, emptyRoomService, emptyRoomView);
+        AManagerRoomController guestRoomController = new GuestRoomController(null, guestRoomService, guestRoomView);
+        AManagerRoomController bookedRoomController = new BookedRoomController(null, bookedRoomService, bookedRoomView);
 
 //<---------PANEL SERVICE--------------------->
         PanelManagerServiceView panelManagerServiceView = new PanelManagerServiceView();
@@ -61,9 +62,11 @@ public class MainView extends JFrame {
 //<---------Refresh view--------------------->
         ((EmptyRoomController) emptyRoomController).setGuestRoomController((GuestRoomController) guestRoomController);
         ((EmptyRoomController) emptyRoomController).setBookedRoomController((BookedRoomController) bookedRoomController);
+        ((EmptyRoomController) emptyRoomController).setPanelManagerServiceView(panelManagerServiceView);
 
         ((BookedRoomController) bookedRoomController).setGuestRoomController((GuestRoomController) guestRoomController);
         ((BookedRoomController) bookedRoomController).setEmptyRoomController((EmptyRoomController) emptyRoomController);
+
 
         ((GuestRoomController) guestRoomController).setEmptyRoomController((EmptyRoomController) emptyRoomController);
         ((GuestRoomController) guestRoomController).setManagerPaymentController(managerPaymentController);
@@ -72,7 +75,9 @@ public class MainView extends JFrame {
 
 
         List<ARoomView> aRoomViews = new ArrayList<>();
-        aRoomViews.add(emptyRoomView);aRoomViews.add(guestRoomView);aRoomViews.add(bookedRoomView);
+        aRoomViews.add(emptyRoomView);
+        aRoomViews.add(guestRoomView);
+        aRoomViews.add(bookedRoomView);
 
         List<AManagerRoomController> aManagerRoomControllers = new ArrayList<>();
         aManagerRoomControllers.add(roomAllLayoutController);
@@ -82,10 +87,10 @@ public class MainView extends JFrame {
 
         RefreshController refreshController = new RefreshController(null);
         ((GuestRoomController) guestRoomController).setRefreshController(refreshController);
-        ((EmptyRoomController) emptyRoomController).setRefreshController( refreshController);
+        ((EmptyRoomController) emptyRoomController).setRefreshController(refreshController);
         ((BookedRoomController) bookedRoomController).setRefreshController(refreshController);
 
-         serviceController.setRefreshController(refreshController);
+        serviceController.setRefreshController(refreshController);
 
 //<---------PANEL Main Right--------------------->
         panelRight.setPanelView(tabbebPaneRoomView);
@@ -98,14 +103,14 @@ public class MainView extends JFrame {
 
         this.add(this.panelLeft, BorderLayout.WEST);
         this.add(this.panelRight, BorderLayout.CENTER);
-        setSize(1245,640);
+        setSize(1245, 640);
     }
 
     public PanelLeftView getPanelLeft() {
         return panelLeft;
     }
 
-    public void showGUI(){
+    public void showGUI() {
         setVisible(true);
     }
 

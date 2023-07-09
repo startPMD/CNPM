@@ -53,6 +53,14 @@ public class PanelManagerServiceView extends JPanel {
         btnAdđServiceOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(selectComboBox.getItemCount()<1){
+                    JOptionPane.showMessageDialog(null,"Không tìm thấy phòng thêm dịch vụ");
+                    return;
+                }
+                else {
+                    btnSaveService.setEnabled(true);
+                }
+
                 if (selectModel.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(null, "Bạn chưa chọn các dịch vụ cần thêm!");
                     return;
@@ -79,7 +87,9 @@ public class PanelManagerServiceView extends JPanel {
         priceServices = new HashMap<>();
 
     }
-
+    public void offSaveService(){
+         btnSaveService.setEnabled(false);
+    }
     private JPanel createPanelServices() {
         // Init dropdowns
         String[] serviceOptions = {"Tất cả sản phẩm", "Đồ ăn", "Nước"};
@@ -114,7 +124,6 @@ public class PanelManagerServiceView extends JPanel {
 
     private JPanel createPanelServicesSelect() {
         selectComboBox = new JComboBox<>();
-//        selectComboBox.addActionListener(e_ -> buttonEvent("selectComboBox"));
 
         String[] selectColumnNames = {"STT", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền", "Bỏ"};
         selectModel = new DefaultTableModel(selectColumnNames, 0) {
@@ -191,6 +200,12 @@ public class PanelManagerServiceView extends JPanel {
         for (Integer integer : integers) {
             this.selectComboBox.addItem(String.valueOf(integer));
         }
+    }
+    public boolean hasNumberRoom() {
+            return this.selectComboBox.getItemCount()>0;
+    }
+    public void setCBDateNumberRoom(Integer integer) {
+        this.selectComboBox.addItem(String.valueOf(integer));
     }
 
     public String getOptionServiceCb() {

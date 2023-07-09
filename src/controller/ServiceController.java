@@ -20,14 +20,20 @@ public class ServiceController {
     public ServiceController(PanelManagerServiceView panelManagerServiceView, ServiceRoomService serviceRoomService) {
         this.panelManagerServiceView = panelManagerServiceView;
         this.serviceRoomService = serviceRoomService;
-        // dat gia tri mat dinh
-        getDataServiceOption("IN(2,3)");
-        // dat du lieu phong
 
-        this.panelManagerServiceView.setCBDateNumberRoom(this.serviceRoomService.getNumbersRoomGues_Booked());
+        getDataServiceOption("IN(2,3)");
+        getNumbersRoomGuest_Booked();
         loadDateServices();
     }
+    public void getNumbersRoomGuest_Booked(){
+        List<Integer> lsNumberRoom = this.serviceRoomService.getNumbersRoomGues_Booked();
+        if(lsNumberRoom.size() < 1){
+            this.panelManagerServiceView.offSaveService();
 
+            return;
+        }
+        this.panelManagerServiceView.setCBDateNumberRoom(lsNumberRoom);
+    }
     public void setGuestRoomController(GuestRoomController guestRoomController) {
         this.guestRoomController = guestRoomController;
     }

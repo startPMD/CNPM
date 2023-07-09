@@ -1,0 +1,170 @@
+-- cus
+INSERT INTO `customer` VALUES (1, 'Nguyễn Văn A', '0987654321', '123 Đường 1, Quận 2, TP.HCM', 'nguyenvana@gmail.com', 'ABC123', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (2, 'Trần Thị B', '0909090909', '456 Đường 2, Quận 3, TP.HCM', 'tranthib@gmail.com', 'XYZ456', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (3, 'Lê Minh C', '0123456789', '789 Đường 3, Quận 4, TP.HCM', 'leminhc@gmail.com', 'DEF789', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (4, 'Phạm Thanh D', '0888888888', '321 Đường 4, Quận 5, TP.HCM', 'phamthanhd@gmail.com', 'GHI012', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (5, 'Đỗ Hải E', '0333333333', '654 Đường 5, Quận 6, TP.HCM', 'dohaie@gmail.com', 'JKL345', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (6, 'Nguyễn Thị F', '0777777777', '987 Đường 6, Quận 7, TP.HCM', 'nguyenthif@gmail.com', 'MNO678', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (7, 'Trần Văn G', '0666666666', '258 Đường 7, Quận 8, TP.HCM', 'tranvang@gmail.com', 'PQR901', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (8, 'Lê Thị H', '0555555555', '369 Đường 8, Quận 9, TP.HCM', 'lethih@gmail.com', 'STU234', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (9, 'Phạm Hải I', '0444444444', '147 Đường 9, Quận 10, TP.HCM', 'phamhaii@gmail.com', 'VWX567', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (10, 'Đỗ Thị K', '0321654987', '258 Đường 10, Quận 11, TP.HCM', 'dothik@gmail.com', 'YZA890', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (11, 'Nguyễn Văn L', '0987654321', '123 Đường A, Quận B, Hà Nội', 'nguyenvanl@gmail.com', 'BCD123', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (12, 'Trần Thị M', '0909090909', '456 Đường B, Quận C, Hà Nội', 'tranthim@gmail.com', 'EFG456', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (13, 'Lê Minh N', '0123456789', '789 Đường C, Quận D, Hà Nội', 'leminhn@gmail.com', 'HIJ789', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (14, 'Phạm Thanh O', '0888888888', '321 Đường D, Quận E, Hà Nội', 'phamthanh@gmail.com', 'KLM012', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (15, 'Đỗ Hải P', '0333333333', '654 Đường E, Quận F, Hà Nội', 'dohaip@gmail.com', 'NOP345', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (16, 'Nguyễn Thị Q', '0777777777', '987 Đường F, Quận G, Hà Nội', 'nguyenthiq@gmail.com', 'QRS678', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (17, 'Trần Văn R', '0666666666', '258 Đường G, Quận H, Hà Nội', 'tranvanr@gmail.com', 'TUV901', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (18, 'Lê Thị S', '0555555555', '369 Đường H, Quận I, Hà Nội', 'lethis@gmail.com', 'WXY234', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (19, 'Phạm Hải T', '0444444444', '147 Đường I, Quận K, Hà Nội', 'phamhait@gmail.com', 'ZAB567', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (20, 'Đỗ Thị U', '0321654987', '258 Đường K, Quận L, Hà Nội', 'dothiu@gmail.com', 'CDE890', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (21, 'Nguyễn Văn V', '0987654321', '123 Đường L, Quận M, Đà Nẵng', 'nguyenvanv@gmail.com', 'EFG123', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (22, 'Trần Thị X', '0909090909', '456 Đường M, Quận N, Đà Nẵng', 'tranthix@gmail.com', 'HIJ456', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (23, 'Lê Minh Y', '0123456789', '789 Đường N, Quận P, Đà Nẵng', 'leminhy@gmail.com', 'KLM789', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (24, 'Phạm Thanh Z', '0888888888', '321 Đường P, Quận Q, Đà Nẵng', 'phamthanhz@gmail.com', 'NOP012', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (25, 'Đỗ Hải A', '0333333333', '654 Đường Q, Quận R, Đà Nẵng', 'dohaia@gmail.com', 'QRS345', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (26, 'Nguyễn Thị B', '0777777777', '987 Đường R, Quận S, Đà Nẵng', 'nguyenthib@gmail.com', 'TUV678', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (27, 'Trần Văn C', '0666666666', '258 Đường S, Quận T, Đà Nẵng', 'tranvanc@gmail.com', 'WXY901', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (28, 'Lê Thị D', '0555555555', '369 Đường T, Quận U, Đà Nẵng', 'lethid@gmail.com', 'ZAB234', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (29, 'Phạm Hải E', '0444444444', '147 Đường U, Quận V, Đà Nẵng', 'phamhaie@gmail.com', 'CDE567', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (30, 'Đỗ Thị F', '0321654987', '258 Đường V, Quận X, Đà Nẵng', 'dothif@gmail.com', 'FGH890', '0000-00-00 00:00:00');
+INSERT INTO `customer` VALUES (147, 'nguyen van a', '1203123123', 'null', 'adjwd@', '13123123', '2023-07-08 21:46:28');
+INSERT INTO `customer` VALUES (148, 'nguyen âdw', '1231238', 'null', 'qewqu@', '12318237', '2023-07-08 23:01:29');
+
+-- ----------------------------
+-- Records of employee
+-- ----------------------------
+INSERT INTO `employee` VALUES (37, 'Nguyễn Văn A', 'Nam', '1990-01-01', 'Hà Nội', '0987654321', 'nguyenvana@gmail.com', 'Nhân viên lễ tân', 10000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (38, 'Trần Thị B', 'Nữ', '1995-03-15', 'Hải Phòng', '0912345678', 'tranthib@gmail.com', 'Nhân viên phục vụ', 8000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (39, 'Lê Văn C', 'Nam', '1985-07-20', 'Tp. Hồ Chí Minh', '0901234567', 'levanc@gmail.com', 'Quản lý khách sạn', 20000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (40, 'Phạm Thị D', 'Nữ', '1992-12-30', 'Hà Nội', '0123456789', 'phamthid@gmail.com', 'Nhân viên bảo vệ', 7000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (41, 'Trần Văn E', 'Nam', '1988-05-25', 'Đà Nẵng', '0987654321', 'tranvane@gmail.com', 'Nhân viên lễ tân', 9000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (42, 'Nguyễn Thị F', 'Nữ', '1990-10-10', 'Hải Phòng', '0912345678', 'nguyenthif@gmail.com', 'Nhân viên phục vụ', 8000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (43, 'Lê Thị G', 'Nữ', '1993-02-18', 'Tp. Hồ Chí Minh', '0901234567', 'lethig@gmail.com', 'Nhân viên kế toán', 7000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (44, 'Trần Văn H', 'Nam', '1980-11-11', 'Hà Nội', '0123456789', 'tranvanh@gmail.com', 'Giám đốc khách sạn', 50000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (45, 'Nguyễn Thị I', 'Nữ', '1995-09-22', 'Đà Nẵng', '0987654321', 'nguyenthii@gmail.com', 'Nhân viên lễ tân', 9000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (46, 'Lê Văn K', 'Nam', '1987-06-29', 'Hải Phòng', '0912345678', 'levank@gmail.com', 'Quản lý nhà hàng', 20000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (47, 'Phạm Văn L', 'Nam', '1991-08-08', 'Tp. Hồ Chí Minh', '0901234567', 'phamvanl@gmail.com', 'Nhân viên phục vụ', 7000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (48, 'Trần Thị M', 'Nữ', '1996-04-12', 'Hà Nội', '0123456789', 'tranthim@gmail.com', 'Nhân viên bảo vệ', 8000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (49, 'Nguyễn Văn N', 'Nam', '1989-03-05', 'Đà Nẵng', '0987654321', 'nguyenvann@gmail.com', 'Nhân viên lễ tân', 9000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (50, 'Lê Thị O', 'Nữ', '1992-01-23', 'Hải Phòng', '0912345678', 'lethio@gmail.com', 'Nhân viên phục vụ', 8000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (51, 'Phạm Văn P', 'Nam', '1986-09-19', 'Tp. Hồ Chí Minh', '0901234567', 'phamvanp@gmail.com', 'Nhân viên bảo vệ', 7000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (52, 'Trần Thị Q', 'Nữ', '1984-12-01', 'Hà Nội', '0123456789', 'tranthiq@gmail.com', 'Trưởng phòng nhân sự', 25000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (53, 'Nguyễn Văn R', 'Nam', '1983-11-15', 'Đà Nẵng', '0987654321', 'nguyenvanr@gmail.com', 'Nhân viên lễ tân', 9000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (54, 'Lê Thị S', 'Nữ', '1994-07-05', 'Hải Phòng', '0912345678', 'lethis@gmail.com', 'Nhân viên phục vụ', 8000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (55, 'Phạm Văn T', 'Nam', '1990-02-17', 'Tp. Hồ Chí Minh', '0901234567', 'phamvant@gmail.com', 'Nhân viên kế toán', 7000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (56, 'Trần Thị U', 'Nữ', '1981-06-23', 'Hà Nội', '0123456789', 'tranthiu@gmail.com', 'Giám đốc kinh doanh', 50000000.00, '2023-07-08 20:13:31');
+INSERT INTO `employee` VALUES (57, 'Nguyễn Văn V', 'Nam', '1982-09-29', 'Đà Nẵng', '0987654321', 'nguyenvanv@gmail.com', 'Nhân viên lễ tân', 9000000.00, '2023-07-08 20:13:31');
+
+-- ----------------------------
+-- Records of hotel_info
+-- ----------------------------
+INSERT INTO `hotel_info` VALUES (1, 'Hotel ABC', '76A Đ.Lê Lai-Phường Bến Thành-Quận 1-Tp.Hồ Chí Minh', '012312322', 'hotelABC.vn');
+
+-- ----------------------------
+-- Records of room
+-- ----------------------------
+INSERT INTO `room` VALUES (1, '101', 1, 1, NULL, 'Tầng 1');
+INSERT INTO `room` VALUES (2, '102', 1, 2, NULL, 'Tầng 1');
+INSERT INTO `room` VALUES (3, '103', 1, 2, NULL, 'Tầng 1');
+INSERT INTO `room` VALUES (4, '104', 1, 1, NULL, 'Tầng 1');
+INSERT INTO `room` VALUES (5, '105', 1, 1, NULL, 'Tầng 1');
+INSERT INTO `room` VALUES (6, '106', 1, 1, NULL, 'Tầng 1');
+INSERT INTO `room` VALUES (7, '107', 1, 1, NULL, 'Tầng 1');
+INSERT INTO `room` VALUES (8, '108', 1, 1, NULL, 'Tầng 1');
+INSERT INTO `room` VALUES (9, '109', 1, 1, NULL, 'Tầng 1');
+INSERT INTO `room` VALUES (10, '110', 2, 1, NULL, 'Tầng 1');
+INSERT INTO `room` VALUES (11, '201', 2, 1, NULL, 'Tầng 2');
+INSERT INTO `room` VALUES (12, '202', 2, 1, NULL, 'Tầng 2');
+INSERT INTO `room` VALUES (13, '203', 2, 1, NULL, 'Tầng 2');
+INSERT INTO `room` VALUES (14, '204', 2, 1, NULL, 'Tầng 2');
+INSERT INTO `room` VALUES (15, '205', 2, 1, NULL, 'Tầng 2');
+INSERT INTO `room` VALUES (16, '206', 2, 1, NULL, 'Tầng 2');
+INSERT INTO `room` VALUES (17, '207', 2, 1, NULL, 'Tầng 2');
+INSERT INTO `room` VALUES (18, '208', 2, 1, NULL, 'Tầng 2');
+INSERT INTO `room` VALUES (19, '209', 2, 1, NULL, 'Tầng 2');
+INSERT INTO `room` VALUES (20, '210', 2, 1, NULL, 'Tầng 2');
+INSERT INTO `room` VALUES (21, '301', 3, 1, NULL, 'Tầng 3');
+INSERT INTO `room` VALUES (22, '302', 3, 1, NULL, 'Tầng 3');
+INSERT INTO `room` VALUES (23, '303', 3, 1, NULL, 'Tầng 3');
+INSERT INTO `room` VALUES (24, '304', 3, 1, NULL, 'Tầng 3');
+INSERT INTO `room` VALUES (25, '305', 3, 1, NULL, 'Tầng 3');
+INSERT INTO `room` VALUES (26, '306', 3, 1, NULL, 'Tầng 3');
+INSERT INTO `room` VALUES (27, '307', 3, 1, NULL, 'Tầng 3');
+INSERT INTO `room` VALUES (28, '308', 3, 1, NULL, 'Tầng 3');
+INSERT INTO `room` VALUES (29, '309', 3, 1, NULL, 'Tầng 3');
+INSERT INTO `room` VALUES (30, '310', 3, 1, NULL, 'Tầng 3');
+INSERT INTO `room` VALUES (31, '401', 4, 1, NULL, 'Tầng 4');
+INSERT INTO `room` VALUES (32, '402', 4, 1, NULL, 'Tầng 4');
+INSERT INTO `room` VALUES (33, '403', 4, 1, NULL, 'Tầng 4');
+INSERT INTO `room` VALUES (34, '404', 4, 1, NULL, 'Tầng 4');
+INSERT INTO `room` VALUES (35, '405', 4, 1, NULL, 'Tầng 4');
+INSERT INTO `room` VALUES (36, '406', 4, 1, NULL, 'Tầng 4');
+INSERT INTO `room` VALUES (37, '407', 4, 1, NULL, 'Tầng 4');
+INSERT INTO `room` VALUES (38, '408', 4, 1, NULL, 'Tầng 4');
+INSERT INTO `room` VALUES (39, '409', 4, 1, NULL, 'Tầng 4');
+INSERT INTO `room` VALUES (40, '410', 4, 1, NULL, 'Tầng 4');
+
+-- ----------------------------
+-- Records of room_types
+-- ----------------------------
+INSERT INTO `room_types` VALUES (1, 'Standard', 'Phòng tiêu chuẩn chỉ có giường và tủ quần áo', 800000.00, NULL, 3);
+INSERT INTO `room_types` VALUES (2, 'Deluxe', 'Phòng sang trọng với diện tích lớn', 1500000.00, NULL, 2);
+INSERT INTO `room_types` VALUES (3, 'Family', 'Phòng đầy đủ tiện nghi cho cả gia đình', 2000000.00, NULL, 5);
+INSERT INTO `room_types` VALUES (4, 'Suite', 'Phòng cao cấp dành cho hoạt động nghỉ dưỡng', 2500000.00, NULL, 4);
+
+-- ----------------------------
+-- Records of service
+-- ----------------------------
+INSERT INTO `service` VALUES (1, 'Bún chả', '', 20000.00, 2);
+INSERT INTO `service` VALUES (2, 'Phở bò', '', 25000.00, 2);
+INSERT INTO `service` VALUES (3, 'Cơm gà', '', 30000.00, 2);
+INSERT INTO `service` VALUES (4, 'Bánh mì thịt', '', 15000.00, 2);
+INSERT INTO `service` VALUES (5, 'Bánh cuốn', '', 20000.00, 2);
+INSERT INTO `service` VALUES (6, 'Gà xào sả ớt', '', 35000.00, 2);
+INSERT INTO `service` VALUES (7, 'Bò lúc lắc', '', 40000.00, 2);
+INSERT INTO `service` VALUES (8, 'Cá kho tộ', '', 45000.00, 2);
+INSERT INTO `service` VALUES (9, 'Mì Quảng', '', 30000.00, 2);
+INSERT INTO `service` VALUES (10, 'Bún bò Huế', '', 35000.00, 2);
+INSERT INTO `service` VALUES (11, 'Trà đá', '', 10000.00, 3);
+INSERT INTO `service` VALUES (12, 'Cà phê đen', '', 15000.00, 3);
+INSERT INTO `service` VALUES (13, 'Cà phê sữa đá', '', 20000.00, 3);
+INSERT INTO `service` VALUES (14, 'Soda chanh', '', 15000.00, 3);
+INSERT INTO `service` VALUES (15, 'Nước cam ép', '', 20000.00, 3);
+INSERT INTO `service` VALUES (16, 'Nước suối', '', 10000.00, 3);
+INSERT INTO `service` VALUES (17, 'Bia Hà Nội', '', 20000.00, 3);
+INSERT INTO `service` VALUES (18, 'Rượu vang', '', 50000.00, 3);
+INSERT INTO `service` VALUES (19, 'Cocktail', '', 35000.00, 3);
+INSERT INTO `service` VALUES (20, 'Chanh muối', '', 15000.00, 3);
+
+-- ----------------------------
+-- Records of status_room
+-- ----------------------------
+INSERT INTO `status_room` VALUES (1, 'Trống', 'Phòng đang trống');
+INSERT INTO `status_room` VALUES (2, 'Đang sử dụng', 'Phòng đang được sử dụng bởi khách hàng');
+INSERT INTO `status_room` VALUES (3, 'Đang được đặt', 'Phòng đã được đặt nhưng chưa sử dụng');
+INSERT INTO `status_room` VALUES (4, 'Đang dọn dẹp', 'Phòng đang được dọn dẹp');
+INSERT INTO `status_room` VALUES (5, 'Đang bảo trì', 'Phòng đang được bảo trì');
+INSERT INTO `status_room` VALUES (6, 'Phòng đã trã', NULL);
+
+-- ----------------------------
+-- Records of type_service
+-- ----------------------------
+INSERT INTO `type_service` VALUES (1, 'Tất cả');
+INSERT INTO `type_service` VALUES (2, 'Đồ ăn');
+INSERT INTO `type_service` VALUES (3, 'Nước uống');
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES (28, 0, 'user', '2', '2023-07-08 20:31:00', '2023-07-08 21:18:00', 42);
+INSERT INTO `users` VALUES (29, 0, 'user1', '1', '2023-07-08 20:31:00', '2023-07-08 20:31:05', 44);
+INSERT INTO `users` VALUES (30, 0, 'user2', '1', '2023-07-08 20:31:00', '2023-07-08 20:31:05', 45);
+
+
+-- ----------------------------
+-- Records of book_a_room
+-- ----------------------------
+INSERT INTO `book_a_room` VALUES (158, 147, 2, '2023-07-08 21:46:28', '2023-07-20 21:46:28', '2023-07-19 21:46:28', NULL, 2, 'Chưa thanh toán', NULL);
+INSERT INTO `book_a_room` VALUES (159, 148, 3, '2023-07-08 23:01:29', '2023-07-19 23:01:29', '2023-07-21 23:01:29', NULL, 2, 'Chưa thanh toán', NULL);

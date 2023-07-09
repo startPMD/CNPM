@@ -12,6 +12,7 @@ public class EmptyRoomController extends AManagerRoomController {
     EmptyRoomView emptyRoomView;
     GuestRoomController guestRoomController;
     BookedRoomController bookedRoomController;
+    PanelManagerServiceView panelManagerServiceView;
     public EmptyRoomController(ARoomModel aRoomModel, ARoomService aRoomService, ARoomView aRoomView) {
         super(aRoomModel, aRoomService, aRoomView);
         emptyRoomView = (EmptyRoomView) aRoomView;
@@ -24,7 +25,9 @@ public class EmptyRoomController extends AManagerRoomController {
     public void setBookedRoomController(BookedRoomController bookedRoomController) {
         this.bookedRoomController = bookedRoomController;
     }
-
+    public void setPanelManagerServiceView(PanelManagerServiceView panelManagerServiceView) {
+        this.panelManagerServiceView = panelManagerServiceView;
+    }
     @Override
     public void construcFirst() {
 
@@ -104,13 +107,8 @@ public class EmptyRoomController extends AManagerRoomController {
                         refreshController.resetViewRoom(bookedRoomController.aRoomService,bookedRoomController.bookedRoomView,bookedRoomController);
 
                     }
-//
-//                    emptyRoomView.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-//                    // resetView
-////                    refreshController.resetViewRoom();
-//
-//                    emptyRoomView.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-
+                    // cho phep phong duoc phep dat dich vu
+                    panelManagerServiceView.setCBDateNumberRoom(numberRoom);
                    // tat form sau khi thuc hien xong
                        JOptionPane.showMessageDialog(null, "Thông tin đã được lưu thành công");
                        roomBookingFormView.offDetail();
